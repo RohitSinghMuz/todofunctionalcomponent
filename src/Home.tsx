@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                 <Typography sx={Styles.navigationTextStyle}>
                   NAVIGATION
                 </Typography>
-                <Button onClick={expandNav}>
+                <Button onClick={expandNav} data-testid="expandNavId">
                   {isNavigate === true ? (
                     <ExpandMoreIcon
                       fontSize="medium"
@@ -164,7 +164,7 @@ const Home: React.FC = () => {
               <Box sx={Styles.navigationViewStyle}>
                 <Typography sx={Styles.noColorTextStylez}>NO COLOR</Typography>
 
-                <Button onClick={handleNoColor}>
+                <Button onClick={handleNoColor} data-testid="handleNoColorId">
                   {noColor === true ? (
                     <ExpandMoreIcon
                       fontSize="medium"
@@ -232,19 +232,21 @@ const Home: React.FC = () => {
                       <select
                         onChange={handleFruitChange}
                         style={{ border: "none" }}
+                        data-testid="handleSelectItemId"
                       >
-                        {dateElement.map((item) => (
+                        {/* {dateElement.map((item) => (
                           <option key={item.id} value={item.id}>
                             <Typography sx={Styles.showByDateStyle}>
                               {item.name}
                             </Typography>
                           </option>
-                        ))}
+                        ))} */}
                       </select>
                     </Typography>
                   </Box>
                   <Box sx={Styles.buttonViewStyle}>
                     <Button
+                      data-testid="handleRecentelementId"
                       onClick={handleRecent}
                       sx={[
                         Styles.recentButtonStyle,
@@ -257,6 +259,7 @@ const Home: React.FC = () => {
                       recent
                     </Button>
                     <Button
+                      data-testid="handlePopularBtnId"
                       onClick={handlePopular}
                       sx={[
                         Styles.recentButtonStyle,

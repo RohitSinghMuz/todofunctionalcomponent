@@ -18,10 +18,19 @@ import FeedSharpIcon from "@mui/icons-material/FeedSharp";
 import TuneSharpIcon from "@mui/icons-material/TuneSharp";
 import CircleNotificationsSharpIcon from "@mui/icons-material/CircleNotificationsSharp";
 import OutboxSharpIcon from "@mui/icons-material/OutboxSharp";
+import { act } from "react-dom/test-utils";
 
 interface selectByDate {
   id: number;
   name: string;
+}
+interface ProductElement {
+  name: string;
+  price: number | string;
+  description: string;
+  image: string;
+  category: string;
+  title: string;
 }
 
 const dateElement: selectByDate[] = [
@@ -35,22 +44,25 @@ const Product: React.FC = () => {
   const [selectedelemnt, setSelectElement] = useState<number | undefined>(
     undefined
   );
-  const [data, setdata] = useState<any>({
+  const [data, setdata] = useState<ProductElement>({
     name: "",
     price: "",
     description: "",
     image: "",
     category: "",
+    title: "",
   });
   const handleFruitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectElement(Number(event.target.value));
   };
   const param = useParams();
   console.log(param.id, "param");
-  const fetchdata = () => {
-    fetch(`https://fakestoreapi.com/products/${param.id}`)
-      .then((res) => res.json())
-      .then((newdata) => setdata(newdata));
+  const fetchdata = async () => {
+    const respData = await fetch(
+      `https://fakestoreapi.com/products/${param.id}`
+    );
+    const recElement = await respData.json();
+    setdata(recElement);
   };
 
   useEffect(() => {
@@ -122,7 +134,7 @@ const Product: React.FC = () => {
         <Box>
           <Box sx={Styles.navigationViewStyle}>
             <Typography sx={Styles.navigationTextStyle}>NAVIGATION</Typography>
-            <Button onClick={expandNav}>
+            <Button onClick={expandNav} data-testid="expandNavProductId">
               {isNavigate === true ? (
                 <ExpandMoreIcon fontSize="medium" sx={Styles.expandIconStyle} />
               ) : (
@@ -164,7 +176,7 @@ const Product: React.FC = () => {
             <Box sx={Styles.navigationViewStyle}>
               <Typography sx={Styles.noColorTextStylez}>NO COLOR</Typography>
 
-              <Button onClick={handleNoColor}>
+              <Button onClick={handleNoColor} data-testid="noColorProductId">
                 {noColor === true ? (
                   <ExpandMoreIcon
                     fontSize="medium"

@@ -64,9 +64,12 @@ const Form: React.FC = () => {
       errors.pinCode = "pincode must be at least 6 number";
     }
     setErrorsCheck({ errors });
+    return Object.keys(errors).length > 0;
   };
   const handleSubmit = () => {
-    validateForm();
+    if (validateForm()) {
+      return;
+    }
     let arr = {
       firstName,
       lastName,

@@ -4,16 +4,31 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
+      <ul style={Styles.unSortedListStyle}>
+        <li style={Styles.listStyle}>
+          <Link to="/" data-testid="homeLinkId">
+            Home
+          </Link>
         </li>
-        <li>
-          <Link to="/form">Form</Link>
+        <li style={Styles.listStyle}>
+          <Link to="/form" data-testid="formLinkId">
+            Form
+          </Link>
         </li>
       </ul>
     </>
   );
 };
-
 export default Header;
+const Styles = {
+  unSortedListStyle: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  listStyle: {
+    textDecoration: "none",
+    listStyleDecoration: "none",
+    listStyleType: "none",
+    margin: "0px 20px",
+  },
+};

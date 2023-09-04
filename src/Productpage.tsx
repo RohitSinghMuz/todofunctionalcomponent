@@ -17,13 +17,10 @@ const Productpage: React.FC = () => {
   const [data, setData] = useState<Product[]>([]);
   const navigate = useNavigate();
   const apiCall = async () => {
-    try {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const responseData: Product[] = await response.json();
-      setData(responseData);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    let response = await fetch("https://fakestoreapi.com/products");
+    let recElement = await response.json();
+    setData(recElement);
+    console.log("recElement-----", recElement);
   };
 
   useEffect(() => {
@@ -36,7 +33,7 @@ const Productpage: React.FC = () => {
   return (
     <>
       <Box sx={Styles.cardViewStyle}>
-        {data?.map((item: Product) => (
+        {data?.map((item: Product, index: number) => (
           <Box
             key={item.id}
             sx={{
@@ -46,7 +43,11 @@ const Productpage: React.FC = () => {
               textAlign: "center",
             }}
           >
-            <Card sx={{ width: 300 }} onClick={() => cardDetails(item.id)}>
+            <Card
+              sx={{ width: 300 }}
+              onClick={() => cardDetails(item.id)}
+              data-testid={`cardElementId-${index}`}
+            >
               <img style={Styles.imgStyle} src={item.image} alt={item.title} />
               <CardContent>
                 <Typography sx={Styles.titleStyle}>{item.title}</Typography>

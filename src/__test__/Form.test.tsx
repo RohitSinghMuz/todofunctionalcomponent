@@ -8,24 +8,22 @@ import ReactDOM from "react-dom";
 
 const mockedUsedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
-  ...(jest.requireActual("react-router") as any),
+  ...(jest.requireActual("react-router-dom") as any),
   useNavigate: () => mockedUsedNavigate,
   useLocation: () => mockedUsedNavigate,
 }));
 
-const someValues = [{ name: "teresa teng" }];
-
-describe("Team Lead Add User Component", () => {
-  test("TL Add User Component render correctly", () => {
+describe("Submit Form Data ", () => {
+  test("user Display Form List", () => {
     render(<Form />);
     expect(screen).toBeTruthy();
   });
 
   test("User can Enter first name string input", async () => {
     render(<Form />);
-    const firstNameInput: any = (
+    const firstNameInput = (
       await screen.getByTestId("firstNameId")
-    )?.querySelector("input");
+    )?.querySelector("input") as HTMLInputElement;
     act(() => {
       fireEvent.change(firstNameInput, { target: { value: "Rana" } });
     });
